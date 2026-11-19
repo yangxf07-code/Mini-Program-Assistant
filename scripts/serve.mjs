@@ -8,4 +8,4 @@ http.createServer(async (req,res) => {
   const file = path === '/' ? 'index.html' : path.slice(1);
   try {const data=await readFile(file);res.writeHead(200,{'Content-Type':mime[extname(file)] || 'application/octet-stream'}).end(data);}
   catch {res.writeHead(404).end();}
-}).listen(Number(process.env.PORT || 4173),'127.0.0.1',()=>console.log('兴趣卡助手 http://127.0.0.1:'+(process.env.PORT || 4173)));
+}).listen(Number(process.env.PORT || process.argv.find((v,i,a)=>a[i-1]==='--port') || 4173),process.env.HOST || '0.0.0.0',()=>console.log('兴趣卡助手 http://127.0.0.1:'+(process.env.PORT || 4173)));

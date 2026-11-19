@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build.mjs",
-    "start": "node scripts/serve.mjs"
+    "start": "node scripts/serve.mjs",
+    "dev": "node scripts/serve.mjs"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.5",
