@@ -12,3 +12,10 @@ body{margin:0;height:100dvh;display:grid;place-items:center;background:#e9edf2;f
 .back{position:absolute;top:48px;left:10px;width:32px;height:32px;border-radius:50%;background:#ffffffc9;font:24px/28px system-ui}
 .selected-filter{background:#e3eafa!important;color:#314c88!important}
 @media(max-width:540px){#device,#screen>div:first-child{border-radius:0}}
+.discover-feed{position:absolute;inset:0 0 90px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;padding-top:283px}
+.discover-feed .discover-tabs{position:sticky;top:96px;left:auto;margin:0 16px;z-index:2}
+.discover-feed .discover-list{position:relative;inset:auto;translate:none;margin:10px 16px 0}
+.discover-nav{pointer-events:none;z-index:3}
+.discover-nav [role=button]{pointer-events:auto}
+.discover-nav.discover-pinned::before{content:"";position:absolute;inset:0 0 auto;z-index:-1;height:96px;background:linear-gradient(180deg,#ccf3ff 6%,#e8f6fc)}
+.discover-feed:has(+.discover-pinned) .discover-tabs::before{content:"";position:absolute;inset:0 -16px -12px;background:linear-gradient(#e8f6fc,#f4f7fb);z-index:-1}

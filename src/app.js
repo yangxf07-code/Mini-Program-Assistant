@@ -107,10 +107,28 @@ function historyView(){
   for(const n of labels(layer(14892)))if(n.textContent.includes('消息')||records.includes(n.textContent.trim()))n.textContent=records[selected]+'的历史消息';
 }
 function discovery(){
-  const list=layer(15538);scroller(list,90);
+  const list=layer(15538), tabs=layer(15531), nav=layer(15449);
+  const feed=document.createElement('div');
+  feed.className='discover-feed';
+  nav.before(feed);
+  for(const id of [15483,15485,15505,15537])feed.append(layer(id));
+  feed.append(tabs,list);
+  tabs.classList.add('discover-tabs');
+  list.classList.add('discover-list');
+  const pinnedAt=tabs.offsetTop-96;
+  feed.addEventListener('scroll',()=>nav.classList.toggle('discover-pinned',feed.scrollTop>=pinnedAt),{passive:true});
+  nav.classList.add('discover-nav');
+  const rows=[...list.children];
+  list.append(...rows.slice(-3).map(row=>row.cloneNode(true)));
+  const entries=[...list.children];
   const modes=[layer(15532),layer(15534)];
-  modes.forEach((el,i)=>{bind(el,()=>{ranking=i;render()});el.style.opacity=ranking===i?'1':'.55'});
-  if(ranking)list.append(...[...list.children].reverse());
+  function chooseRank(index){
+    ranking=index;
+    list.append(...(index?[...entries].reverse():entries));
+    modes.forEach((el,i)=>{el.style.opacity=ranking===i?'1':'.55';el.setAttribute('aria-pressed',String(ranking===i))});
+  }
+  modes.forEach((el,i)=>bind(el,()=>chooseRank(i)));
+  chooseRank(ranking);
   for(const row of list.children){
     link(row,'Square','打开兴趣卡广场');
     for(const n of labels(row))if(['古希腊掌管冲浪的神','山水妹妹','造梦者'].includes(n.textContent.trim()))link(n,'Profile');
